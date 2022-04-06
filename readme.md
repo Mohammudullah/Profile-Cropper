@@ -1,3 +1,5 @@
+CHECK OUT THIS PREVIEW:-  https://profilecropper.mohammudullaha.com/
+
 This Is Edited version of Js image cropper tool(https://fengyuanchen.github.io/cropperjs/) Please check out this if you need the original version of image cropper. I know the original version is more impressive than mine.
 
 Why Edited:
