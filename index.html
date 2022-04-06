@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper - </title>
+    <link rel="stylesheet" href="css/cropper.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body">
+<!-- Upload Button with trigger modal -->
+<div class="body-wrap">
+    <div class="profile-main">
+        <div class="image-main">
+            <img src="profile.jpg" alt="profile-picture" class="w-100 profile-image-preview">
+        </div>
+        <label class="btn-upload" id="upload_btn" for="inputImage" title="Upload image file" class="btn btn-primary d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18.568" height="18.567" viewBox="0 0 18.568 18.567">
+                <g id="pencil" transform="translate(-2.247 -2.25)">
+                  <path id="Path_1" data-name="Path 1" d="M15.9,2.639a1.326,1.326,0,0,1,1.875,0l2.652,2.652a1.326,1.326,0,0,1,0,1.875L8.491,19.1a1.326,1.326,0,0,1-.518.321L3.995,20.749a1.326,1.326,0,0,1-1.679-1.678l1.326-3.979a1.326,1.326,0,0,1,.321-.519L15.9,2.638Zm.938.938L19.49,6.229,7.554,18.165,3.575,19.491,4.9,15.512Z" fill="rgb(22, 142, 234)" fill-rule="evenodd"/>
+                  <path id="Path_2" data-name="Path 2" d="M18.88,11.332,15.564,8.017l.939-.939,3.316,3.316-.938.939ZM6.75,16.168v.663a.663.663,0,0,0,.663.663h.663v.663a.663.663,0,0,0,.663.663H9.4v.663a.663.663,0,0,0,.663.663h.663V18.157a.663.663,0,0,0-.663-.663H9.4v-.663a.663.663,0,0,0-.663-.663Z" transform="translate(-1.849 -1.982)" fill="rgb(22, 142, 234)" fill-rule="evenodd"/>
+                </g>
+            </svg>          
+            <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+        </label>
+    </div>
+</div>
+
+<!--Upload status notification success/faild-->
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+    <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Profile Photo</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+</div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="imageCropperModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg cropper-modal-parent">
+    <div class="modal-content">
+    <div class="modal-body d-flex align-items-center justify-content-center">
+        <div class="img-container">
+                <!-- <canvas id="ImageCropCanvas"></canvas> -->
+                <img id="ImageCropCanvas" src="" class="">
+                <!-- <div id="ImageCropCanvas"></div> -->
+        </div>
+    </div>
+    <div class="modal-footer" id="actions">
+        <div class="btn-wrap docs-buttons d-flex align-items-center justify-content-between w-100">
+            <!--Image cropper controller buttons-->
+            <div class="btn-left">
+                <div class="btnGroup">
+                    <button data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11.573" height="8.68" viewBox="0 0 11.573 8.68">
+                            <path id="bxs-arrow-from-left" d="M16.127,9h1.447v8.68H16.127ZM10.34,17.68V14.063h4.34V12.617H10.34V9L6,13.34Z" transform="translate(-6 -9)" fill="#fff"/>
+                        </svg>                                         
+                    </button>
+                    <button data-method="move" data-option="10" data-second-option="0" title="Move Right">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11.573" height="8.68" viewBox="0 0 11.573 8.68">
+                            <path id="bxs-arrow-from-right" d="M10.127,0h1.447V8.68H10.127ZM4.34,8.68V5.063H8.68V3.617H4.34V0L0,4.34Z" transform="translate(11.573 8.68) rotate(180)" fill="#fff"/>
+                        </svg>                                                              
+                    </button>
+                    <button data-method="zoom" data-option="0.1" title="Zoom In" class="CropperzoomIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11.163" height="11.163" viewBox="0 0 11.163 11.163">
+                            <path id="zoom-in" d="M7.991,7.032,11.163,10.2l-.958.958L7.033,7.99V7.481l-.18-.18a4.047,4.047,0,0,1-2.694.988A4.012,4.012,0,0,1,1.212,7.077,4,4,0,0,1,0,4.144,4,4,0,0,1,1.212,1.211,3.994,3.994,0,0,1,4.145,0,4,4,0,0,1,7.078,1.211,4.011,4.011,0,0,1,8.29,4.159,4.048,4.048,0,0,1,7.3,6.853l.18.18h.509Zm-3.831,0a2.771,2.771,0,0,0,2.035-.838,2.771,2.771,0,0,0,.838-2.035,2.771,2.771,0,0,0-.838-2.035A2.771,2.771,0,0,0,4.16,1.286a2.771,2.771,0,0,0-2.035.838,2.771,2.771,0,0,0-.838,2.035,2.771,2.771,0,0,0,.838,2.035A2.771,2.771,0,0,0,4.16,7.032ZM5.746,4.458H4.459V5.745H3.831V4.458H2.544V3.83H3.831V2.543h.629V3.83H5.746v.629Z" transform="translate(0 0.001)" fill="#fff"/>
+                          </svg>                                                             
+                    </button>
+                </div>
+                
+                <div class="btnGroup">
+                    <button data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8.68" height="11.573" viewBox="0 0 8.68 11.573">
+                            <path id="bxs-arrow-from-up" d="M10.127,0h1.447V8.68H10.127ZM4.34,8.68V5.063H8.68V3.617H4.34V0L0,4.34Z" transform="translate(8.68) rotate(90)" fill="#fff"/>
+                          </svg>    
+                    </button>
+                    <button data-method="move" data-option="0" data-second-option="10" title="Move Down">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8.68" height="11.573" viewBox="0 0 8.68 11.573">
+                            <path id="bxs-arrow-from-down" d="M10.127,0h1.447V8.68H10.127ZM4.34,8.68V5.063H8.68V3.617H4.34V0L0,4.34Z" transform="translate(0 11.573) rotate(-90)" fill="#fff"/>
+                        </svg>                              
+                    </button>
+                    <button class="btn btn-sm btn-success" data-method="zoom" data-option="-0.1" title="Zoom Out">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11.694" height="11.694" viewBox="0 0 11.694 11.694">
+                            <path id="zoom-out" d="M8.371,7.367l3.323,3.323-1,1L7.367,8.37V7.837l-.188-.188A4.24,4.24,0,0,1,4.357,8.683a4.2,4.2,0,0,1-3.088-1.27A4.186,4.186,0,0,1,0,4.341,4.186,4.186,0,0,1,1.27,1.269,4.184,4.184,0,0,1,4.342,0a4.187,4.187,0,0,1,3.073,1.27A4.2,4.2,0,0,1,8.684,4.357,4.24,4.24,0,0,1,7.65,7.179l.188.188h.533Zm-4.013,0A2.9,2.9,0,0,0,6.49,6.489a2.9,2.9,0,0,0,.878-2.132A2.9,2.9,0,0,0,6.49,2.225a2.9,2.9,0,0,0-2.132-.878,2.9,2.9,0,0,0-2.132.878,2.9,2.9,0,0,0-.878,2.132,2.9,2.9,0,0,0,.878,2.132A2.9,2.9,0,0,0,4.358,7.367ZM2.665,4.012H6.019v.658H2.665Z" transform="translate(0 0.001)" fill="#fff"/>
+                        </svg>                                                        
+                    </button>
+                </div>
+            </div>
+            <!--Save, Reupload, close/exit button-->
+            <div class="btn-right">
+                <button type="button" id="cropper_re_upload">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21.902" height="21.902" viewBox="0 0 21.902 21.902">
+                        <g id="software-upload" transform="translate(-6 -6)">
+                          <path id="Path_2" data-name="Path 2" d="M15.889,21.038a1.369,1.369,0,0,0,2.738,0v-9.8l4.439,4.439L25,13.743,17.258,6,9.514,13.744,11.45,15.68l4.44-4.437v9.8Z" transform="translate(-0.307)" fill="#fff"/>
+                          <path id="Path_3" data-name="Path 3" d="M6,21H8.738v5.475H25.164V21H27.9v5.475a2.738,2.738,0,0,1-2.738,2.738H8.738A2.738,2.738,0,0,1,6,26.475Z" transform="translate(0 -1.311)" fill="#fff"/>
+                        </g>
+                    </svg>             
+                </button>
+                <button id="cropper_submit">
+                    <svg id="cropper_check" xmlns="http://www.w3.org/2000/svg" width="19.429" height="16.492" viewBox="0 0 19.429 16.492">
+                        <g id="Group_8" data-name="Group 8" transform="translate(2.188 2.183)">
+                          <path id="checkmark-sharp" d="M21.808,9,11.267,21.047,6.75,16.529" transform="translate(-6.75 -9)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="3.094"/>
+                        </g>
+                    </svg>
+                    <svg id="cropper_loading" style="display:none;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  height="25px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="50" cy="50" fill="none" stroke="#ffffff" stroke-width="12" r="39" stroke-dasharray="183.7831702350029 63.261056745000964">
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1.639344262295082s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                        </circle>
+                    </svg>                                          
+                                    </button>
+                <button type="button" data-bs-dismiss="modal" class="cropperDistroy">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17.208" height="17.208" viewBox="0 0 17.208 17.208">
+                        <path id="close" d="M19.184,17.038l6.008-6.008a1.519,1.519,0,0,0-2.146-2.15l-6.008,6.008L11.03,8.88a1.521,1.521,0,0,0-2.151,2.151l6.008,6.008L8.879,23.047A1.521,1.521,0,0,0,11.03,25.2l6.008-6.008L23.046,25.2A1.521,1.521,0,0,0,25.2,23.047Z" transform="translate(-8.434 -8.435)" fill="#fff"/>
+                      </svg>                                           
+                </button>
+                
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+    
+    <script src="js/jquery-3.5.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/cropper.min.js"></script>
+    <script src="js/cropper-init.js"></script>
+    <script>
+
+        //get toast from HTML
+        toastData = document.getElementById('statusToast');
+
+        //bootstrap toast object creation
+        toast = new bootstrap.Toast(toastData);
+        var alertBg, alertText;
+
+        //Click on submit(ok) button on image cropper modal
+        cropper_submit.addEventListener('click', function(){
+            
+
+            //Cropper canvas to blob render option
+            canvas = cropper.getCroppedCanvas({
+                minWidth: 100,
+                maxWidth: 4096,
+                fillColor: '#FFF',
+            });
+
+            //after render the cropped canvas as blob file
+            canvas.toBlob(function(blob) {
+                //blob to base64 data conversion
+                url = URL.createObjectURL(blob);
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    //store base64 data from 'reader' 
+                    var base64data = reader.result;
+
+                    //base64 data to image conversion
+                    function dataURLtoFile(B64Data, fileName) {
+                        var dataSplit = B64Data.split(',');
+                        var bstr = atob(dataSplit[1]);
+                        var bstrLength = bstr.length;
+                        U8Array = new Uint8Array(bstrLength);
+                        while(bstrLength--) {
+                            U8Array[bstrLength] = bstr.charCodeAt(bstrLength);
+                        }
+
+                        return new File([U8Array], fileName, {type: dataSplit[0].match(/:(.*?);/)[1]});
+                    }
+                    //append File data in form for AJAX sending
+                    var fileData = new FormData();
+                    fileData.append('profile', dataURLtoFile(base64data, 'untitled.jpg'));
+                    
+                    //jquery AJAX
+                    $.ajax({
+                        method: 'POST',
+                        url: 'image_upload.php',
+                        contentType: false,
+                        processData: false,
+                        enctype: 'multipart/formdata',
+                        data: fileData,
+                        statusCode: {
+                            //what to do on different server response code
+                            //on success
+                            201: function(data) {
+                                successFunction();
+                                //insert data on image element
+                                console.log(data);
+                                document.getElementsByClassName('profile-image-preview')[0].src = data;
+                            },
+                            //on failure
+                            400: function(data) {
+                                afterUpdatefunction('Alert! Data is not updated', 'bg-warning');
+                            },
+                            //on file missing
+                            403: function(data) {
+                                afterUpdatefunction('Alert! File Not Found', 'bg-danger', 'text-white');
+                            },
+                            //on unsupported media
+                            415: function(data) {
+                                console.log(data);
+                                afterUpdatefunction('Alert! File type is not supported', 'bg-danger', 'text-white');
+                            }
+                        }
+                    })
+                };
+            }, 'image/jpeg', 0.95);
+        });
+
+        //After get a response code from server
+        function afterUpdatefunction(alertData = '', Bg = '', Text = '') {
+            document.getElementById('cropper_check').style.display = 'block';
+            document.getElementById('cropper_loading').style.display = 'none';
+            if(alertData != '') {
+
+                //print alert data on toast body
+                toastData.getElementsByClassName('toast-body')[0].innerHTML = alertData;
+            
+                //Remove old background and add new background in Toast Body
+                if(alertBg != '') {
+                    toastData.classList.remove(alertBg);
+                    alertBg = '';
+                }
+                if(Bg != '') {
+                    toastData.classList.add(Bg);
+                }
+
+                //Remove old color and add new color in Toast text 
+                if(alertText != '') {
+                    toastData.classList.remove(alertText);
+                    alertText = '';
+                }
+                if(Text != '') {
+                    toastData.classList.add(Text);
+                }
+                
+                //toast show on server response after send data
+                toast.show();
+                //set new toast background and text color with new given data
+                alertBg = Bg;
+                alertText = Text;
+            }
+        }
+
+        //What should do if image submited and moved successfully
+        function successFunction() {
+            $('.cropperDistroy').click();
+            afterUpdatefunction('Success! Data updated', 'bg-dark', 'text-white');
+        }
+    </script>
+</body>
+</html>

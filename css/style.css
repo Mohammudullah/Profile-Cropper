@@ -1,0 +1,166 @@
+/* Universal CSS Start */
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style-type: none;
+}
+
+/* Universal CSS End 
+*/
+/* ======================== Main CSS Start Here ==================== */
+#inputImage {
+    display: none;
+}
+
+.cropper-modal-parent {
+    width: 600px !important;
+}
+
+.cropper-modal-parent .modal-body {
+    padding: 0;
+    background: #5a5a5a;
+}
+
+
+/* ========================= Upload Button Design CSS Start Here ================== */
+
+.image-main {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 10px rgba(22, 142, 234, 0.08) solid;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.body-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-upload {
+    background: #FFF;
+    box-shadow: 0 5px 5px rgba(22, 142, 234, 0.1);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.profile-main {
+    position: relative;
+}
+
+/* ========================= Upload Button Design CSS Ends Here ================== */
+
+
+@media (min-width: 768px) {
+    .cropper-modal-parent {
+        max-width: 600px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .cropper-modal-parent {
+        width: calc(100% - 16px) !important;
+        max-width: calc(100% - 16px) !important;
+    }
+}
+
+#imageCropperModal .btn-left button, #imageCropperModal .btn-left a {
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    background: #343434;
+    border: none;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 2px rgba(0,0,0,.5);
+    justify-content: center;
+    margin-right: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+#imageCropperModal .btn-left button:active, #imageCropperModal .btn-left a:active {
+    background: #383838;
+}
+
+#imageCropperModal .btn-left .btnGroup {
+    margin-bottom: 3px;
+}
+
+#imageCropperModal .btn-left .btnGroup:last-child {
+    margin-bottom: 0px;
+}
+
+#imageCropperModal .btn-left .btnGroup button:last-child, #imageCropperModal .btn-left .btnGroup a:last-child {
+    margin-right: 0;
+}
+
+#imageCropperModal .btn-left .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#imageCropperModal .modal-footer {
+    background: #545454;
+    border: none;
+}
+
+#imageCropperModal .btn-right {
+    display: flex;
+}
+
+#imageCropperModal .btn-right button, #imageCropperModal .btn-right a {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: #343434;
+    border: none;
+    margin-right: 4px;
+    box-shadow: 0 0 2px rgba(0,0,0,.5);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+#imageCropperModal .btn-right button:active, #imageCropperModal .btn-right a:active {
+    background: #383838;
+}
+
+#imageCropperModal .btn-right button:last-child, #imageCropperModal .btn-right a:last-child {
+    margin-right: 0px;
+}
