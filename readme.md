@@ -13,4 +13,4 @@ Why Edited:
 
 Please check out the original if you need more functionality for image cropping and the instructions.
 
-This modification is made only by me and you can use it anywhere you want with out any attribution. Happy coding.
+This modification is made only by me https://github.com/Mohammudullah/ and you can use it anywhere you want with out any attribution. Happy coding.
